@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
+// aqui puedes hacer tu zona, cada objeto es un punto
+// const zone = [{long:0, lat:0},{long:0, lat:0}]
+
 class GeolocationExample extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +13,7 @@ class GeolocationExample extends Component {
       longitude: null,
       poligon: null,
       error: null,
+      //aqui te creas un state para ver si esta adentro o no, un true o flase lo que quieras
     };
   }
   
@@ -20,6 +24,9 @@ class GeolocationExample extends Component {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           error: null,
+          //aqui seteas el state que te dice si esta dentro o fuera obteniendo el valor de la funcion que hace la validacion
+          //le estas pasando como parametro la zona que quieres checar y tu longitud y latitude
+          //isInside: isInside(zone, position.coords.longitude, position.coords.latitude)
         });
       },
       (error) => this.setState({ error: error.message }),
@@ -27,11 +34,17 @@ class GeolocationExample extends Component {
     );
   }
 
+  //Aqui declaras el metodo
+  // a este metodo le puedes pasar 3 parametros, la zona que vas a verificar, y la long y lat del targe
+  //isInside(zone,long,lat) {
+  //Escribe aqui el algoritmo
+  //}
+
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchId);
   }
   
-
+  // aqui agrega un Text donde te imprima el state de isInside
   render() {
     return (
       <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
