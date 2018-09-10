@@ -17,6 +17,14 @@ const zone =[
   [-100.31256565,25.72515301],
   [-100.3126288, 25.7251713]
 ]
+
+const zone2 = [
+  [-100.31285419488006, 25.7253823219666],
+  [-100.31261078441196, 25.7253823219666],
+  [-100.3128535243278, 25.72505665751202],
+  [-100.3126101138597, 25.725046064009536]
+]
+
 class GeolocationExample extends Component {
   constructor(props) {
     super(props);
@@ -34,10 +42,12 @@ class GeolocationExample extends Component {
   componentDidMount() {
     this.watchId = navigator.geolocation.watchPosition(
       (position) => {
+        const isInsideArea =  this.isInside([position.coords.longitude, position.coords.latitude],zone2)
+        console.log(isInsideArea)
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-          inside:this.isInside([position.coords.longitude, position.coords.latitude],zone),
+          inSide: isInsideArea ? 'Is inside' : 'is not inside :(',
           error: null,
           //aqui seteas el state que te dice si esta dentro o fuera obteniendo el valor de la funcion que hace la validacion
           //le estas pasando como parametro la zona que quieres checar y tu longitud y latitude
@@ -55,7 +65,7 @@ class GeolocationExample extends Component {
   Escribe aqui el algoritmo
   }
 */
-inSide(point, vs) {
+isInside(point, vs) {
   // ray-casting algorithm based on
   // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
 
